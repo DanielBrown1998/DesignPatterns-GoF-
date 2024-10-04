@@ -2,36 +2,42 @@ from abc import ABC, abstractmethod
 from random import choice
 
 
-class Vehicle(ABC):
+class Veiculo(ABC):
     @abstractmethod
+    def buscar_cliente(self) -> None: pass
+
+
+class CarroLuxo(Veiculo):
     def buscar_cliente(self) -> None:
-        pass
+        print(f"{__class__.__name__} está buscando o cliente.")
+        print(f"{__class__.__name__} está levando o cliente para o destino.")
+        print(f"{__class__.__name__} chegou ao destino.")
+        print()
 
 
-class Car_Lux(Vehicle):
+class CarroPopular(Veiculo):
     def buscar_cliente(self) -> None:
-        print(f'{self.__class__.__name__} está buscando o cliente')
+        print(f"{__class__.__name__} está buscando o cliente.")
+        print(f"{__class__.__name__} está levando o cliente para o destino.")
+        print(f"{__class__.__name__} chegou ao destino.")
+        print()
 
+class VeiculoFactory:
 
-class CarPop(Vehicle):
-    def buscar_cliente(self) -> None:
-        print(f'{self.__class__.__name__} está buscando o cliente')
-
-
-class VehicleFactory:
     @staticmethod
-    def get_car(tipo: str) -> Vehicle | None:
-        if tipo == 'luxo':
-            return Car_Lux()
-        elif tipo == 'pop':
-            return CarPop()
+    def get_veiculo(nome: str) -> Veiculo:
+        if nome in 'Carro Popular':
+            return CarroPopular()
+        elif nome in 'Carro de Luxo':
+            return CarroLuxo()
         else:
-            return None
-
+            raise ValueError('Veículo não existe.')
 
 if __name__ == '__main__':
-    cars = ['luxo', 'pop']
-    for i in range(10):
-        choices: str = choice(cars)
-        car = VehicleFactory.get_car(choices)
-        car.buscar_cliente()
+    for _ in range(10):
+        veiculo = VeiculoFactory.get_veiculo(
+            choice(
+                ['Carro Popular', 'Carro de Luxo']
+                )
+            )
+        veiculo.buscar_cliente()
