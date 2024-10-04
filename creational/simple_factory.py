@@ -22,6 +22,14 @@ class CarroPopular(Veiculo):
         print(f"{__class__.__name__} chegou ao destino.")
         print()
 
+
+class Moto(Veiculo):
+    def buscar_cliente(self) -> None:
+        print(f"{__class__.__name__} está buscando o cliente.")
+        print(f"{__class__.__name__} está levando o cliente para o destino.")
+        print(f"{__class__.__name__} chegou ao destino.")
+        print()
+
 class VeiculoFactory:
 
     @staticmethod
@@ -30,6 +38,8 @@ class VeiculoFactory:
             return CarroPopular()
         elif nome in 'Carro de Luxo':
             return CarroLuxo()
+        elif nome in 'Moto':
+            return Moto()
         else:
             raise ValueError('Veículo não existe.')
 
